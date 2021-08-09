@@ -85,7 +85,21 @@ export default class Game extends React.Component {
         console.log(`placing Destroyer at ${i}`)
         break;
       default: 
-        console.log('no ship selected')
+        let aiBoardCopy = this.state.aiBoard.slice();
+        let playerBoardCopy = this.state.playerBoard.slice();
+        
+        //Mark this square as being hit
+        if (this.state.aiBoard[i].hit === false) {
+          aiBoardCopy[i].hit = true;
+        }
+    
+        //Let AI take its turn
+        playerBoardCopy[randomInt(0, 100)].hit = true;
+    
+        this.setState({
+          playerBoard: playerBoardCopy,
+          aiBoard: aiBoardCopy
+        })
     }
   }
 
@@ -96,6 +110,10 @@ export default class Game extends React.Component {
     // setTimeout(() => {
     //   console.log(this.state.placingShip)
     // }, 1000);
+  }
+
+  no() {
+
   }
   
   render() {
@@ -135,7 +153,10 @@ export default class Game extends React.Component {
           <Board
             board={this.state.aiBoard}
             isPlayer={false}
-            onClick={(i) => this.handleAIClick(i)}
+            onClick={(i) => this.handlePlayerClick(null,i)}
+            handlePlayerClick={(i) => this.handlePlayerClick(null,i)}
+            onMouseEnter={(coords) => this.no}
+            onMouseLeave={(coords) => this.no}
           />
         </div>
       </div>
@@ -145,8 +166,15 @@ export default class Game extends React.Component {
 
 
 function makeEmptyBoard() {
-  let board = Array(10).fill(null).map(arr => Array(10).fill({ type: "empty", hit: false} ));
-  return board;
+  let board = Array(10).fill(null);
+  for(let i = 0; i < board.length; ++i) {
+    let arr = [];
+    for(let j = 0; j < 10; ++j) {
+      arr.push({ type: "empty", hit: false })
+    }
+    board[i] = arr;
+  }
+  return board
 }
 // ========================================
 
