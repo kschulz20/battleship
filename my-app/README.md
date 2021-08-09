@@ -5,12 +5,12 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [x] make squares its own class       13 (P)
 
-- [x] resolve random ship placements    8
+- [x] resolve random ship placements    1 (P)
       being the same
 
-- [ ] create AI board's onClick         13
+- [x] create AI board's onClick         8 (K)
 
-- [ ] add clicks to ai board            3
+- [x] add clicks to ai board            3 (K)
 
 - [ ] setup onclick function            8
 
