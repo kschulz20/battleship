@@ -14,12 +14,15 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [ ] setup onclick function            8
 
-- [ ] implement random ai               5
+- [x] implement random ai               5 (K)
 
 - [ ] make player ships draggable       13 
 
 - [ ] add a ready button that starts    5
-the game
+      the game
+
+- [ ] make status messages for when     8
+      player destroys enemy ships
 
 - [ ] write ai for 2nd board            21
 

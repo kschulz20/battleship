@@ -14,10 +14,18 @@ export default class Game extends React.Component {
 
   handleAIClick(i) {
     let aiBoardCopy = this.state.aiBoard.slice();
+    let playerBoardCopy = this.state.playerBoard.slice();
+    
+    //Mark this square as being hit
     if (this.state.aiBoard[i].hit === false) {
       aiBoardCopy[i].hit = true;
     }
+
+    //Let AI take its turn
+    playerBoardCopy[randomInt(0, 100)].hit = true;
+
     this.setState({
+      playerBoard: playerBoardCopy,
       aiBoard: aiBoardCopy
     })
   }
