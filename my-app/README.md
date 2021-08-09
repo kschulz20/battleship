@@ -16,11 +16,11 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
       handlePlayerClick from Board to
       Square based on isPlayer in Game.
 
-- [ ] setup onclick function            8
+- [x] setup onclick function            8
 
-- [ ] implement random ai               5
+- [x] implement random ai               5
 
-- [ ] make player ships draggable       13 
+- [ ] make player ships draggable       144 
 
 - [ ] allow for rotations while dragging
 
