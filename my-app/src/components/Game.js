@@ -7,7 +7,8 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: flatten(makeBoard()),
+      playerBoard: flatten(makeBoard()),
+      aiBoard: flatten(makeBoard()),
       playerNext: true
     };
   }
@@ -21,13 +22,13 @@ export default class Game extends React.Component {
       <div className="game">
         <div className="game-board" id="left">
           <Board
-            board={this.state.board}
+            board={this.state.playerBoard}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-board" id="right">
           <Board
-            board={this.state.board}
+            board={this.state.aiBoard}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
