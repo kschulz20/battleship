@@ -8,7 +8,18 @@ ol, ul {
 
 .game {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board {
+  margin-bottom: 5;
+  padding: 10;
+}
+
+#right {
+  align-items: flex-start;
 }
 
 .game-info {

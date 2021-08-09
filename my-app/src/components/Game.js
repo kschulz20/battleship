@@ -25,6 +25,12 @@ export default class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
           />
         </div>
+        <div className="game-board" id="right">
+          <Board
+            board={this.state.board}
+            onClick={(i) => this.handleClick(i)}
+          />
+        </div>
         <div className="game-info">
           <div>{"hi"}</div>
           <ol>{/* TODO */}</ol>
