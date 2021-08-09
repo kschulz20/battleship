@@ -5,6 +5,9 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [x] make squares its own class       13 (P)
 
+- [ ] resolve random ship placements    8
+      being the same
+
 - [ ] setup ai board                    8
 
 - [ ] add clicks to ai board            3
