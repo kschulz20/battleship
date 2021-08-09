@@ -5,18 +5,14 @@ export default class Square extends React.Component {
   render() {
     const {
       shipType,
-      // onMouseDown,
-      // onMouseEnter,
-      // onMouseUp,
-      // onMouseOut,
-      // coords
+      coords
     } = this.props
     return (    
       <button 
         className="square"
         id={shipType}
         style={{ backgroundColor: this.props.bgColor }} 
-        onClick={this.props.onClick}
+        onClick={() => this.props.handlePlayerClick(coords)}
       >
         {null}
       </button>)

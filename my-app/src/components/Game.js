@@ -10,7 +10,7 @@ export default class Game extends React.Component {
       playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
       playerNext: true,
-      shipsPlaced: [false, false, false, false, false],
+      shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
       placingShip: ''
     };
   }
@@ -25,13 +25,63 @@ export default class Game extends React.Component {
     })
   }
 
+  handlePlayerClick(shipName, i) {
+    // TODO put error handling here
+    let shipsPlaced;
+    let shipPlaced
+    this.setState(() => ({placingShip: ''}))
+    switch(shipName) {
+      case 'ACarrier':
+        shipsPlaced = [...this.state.shipsPlaced]
+        shipPlaced = {...shipsPlaced[0], ACarrier: true}
+        shipsPlaced[0] = shipPlaced
+        this.setState(shipsPlaced)
+        console.log(`placing ACarrier at ${i}`)
+        break;
+        
+      case 'Battleship':
+        shipsPlaced = [...this.state.shipsPlaced]
+        shipPlaced = {...shipsPlaced[1], Battleship: true}
+        shipsPlaced[1] = shipPlaced
+        this.setState(shipsPlaced)
+        console.log(`placing Battleship at ${i}`)
+        break;
+        
+      case 'Cruiser':
+        shipsPlaced = [...this.state.shipsPlaced]
+        shipPlaced = {...shipsPlaced[2], Cruiser: true}
+        shipsPlaced[2] = shipPlaced
+        this.setState(shipsPlaced)
+        console.log(`placing Cruiser at ${i}`)
+        break;
+        
+      case 'Submarine':
+        shipsPlaced = [...this.state.shipsPlaced]
+        shipPlaced = {...shipsPlaced[3], Submarine: true}
+        shipsPlaced[3] = shipPlaced
+        this.setState(shipsPlaced)
+        console.log(`placing Submarine at ${i}`)
+        break;
+        
+      case 'Destroyer':
+        shipsPlaced = [...this.state.shipsPlaced]
+        shipPlaced = {...shipsPlaced[4], Destroyer: true}
+        shipsPlaced[4] = shipPlaced
+        this.setState(shipsPlaced)
+        console.log(`placing Destroyer at ${i}`)
+        break;
+      default: 
+        console.log('no ship selected')
+    }
+  }
+
   placingShip(shipName) {
     this.setState(() => ({
       placingShip: shipName
     }))
-    setTimeout(() => {
-      console.log(this.state.placingShip)
-    }, 1000);
+    // setTimeout(() => {
+    //   console.log(this.state.placingShip)
+    // }, 1000);
   }
   
   render() {
@@ -60,6 +110,7 @@ export default class Game extends React.Component {
           <Board
             board={this.state.playerBoard}
             onClick={(i) => this.handleClick(i)}
+            handlePlayerClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
           />
         </div>
         <div className="game-board" id="right">

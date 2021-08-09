@@ -7,9 +7,11 @@ export default class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        coords={i}
+        handlePlayerClick={(ix) => this.props.handlePlayerClick(ix)}
         shipType={this.props.board[i].type}
         bgColor={ (this.props.board[i].type !== "empty" ? "blue" : "white") }
-        onClick={() => this.props.onClick(i)}
+        // onClick={() => this.props.onClick(i)}
         key={i}
       />
     );
