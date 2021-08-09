@@ -12,6 +12,10 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [x] add clicks to ai board            3 (K)
 
+- [ ] pass handleAIClick or             5
+      handlePlayerClick from Board to
+      Square based on isPlayer in Game.
+
 - [ ] setup onclick function            8
 
 - [ ] implement random ai               5
