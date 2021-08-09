@@ -17,3 +17,11 @@
 .square:focus {
   outline: none;
 }
+
+.square {
+  background: white;
+}
+
+.hover {
+  background: darkblue;
+}

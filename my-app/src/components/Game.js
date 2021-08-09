@@ -11,7 +11,8 @@ export default class Game extends React.Component {
       aiBoard: flatten(makeBoard()),
       playerNext: true,
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
-      placingShip: ''
+      placingShip: '',
+      hoverCoords: -1
     };
   }
 
@@ -31,6 +32,11 @@ export default class Game extends React.Component {
       playerBoard: playerBoardCopy,
       aiBoard: aiBoardCopy
     })
+  }
+
+  handleHover(entering, coords) {
+    if (entering && this.placingShip) this.setState({hoverCoords: coords})
+    else this.setState({hover: -1})
   }
 
   handlePlayerClick(shipName, i) {
@@ -118,8 +124,11 @@ export default class Game extends React.Component {
           <Board
             board={this.state.playerBoard}
             isPlayer={true}
-            onClick={(i) => this.handleClick(i)}
+            placingShip={this.state.placingShip}
             handlePlayerClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
+            onMouseEnter={(coords) => this.handleHover(true, coords)}
+            onMouseLeave={(coords) => this.handleHover(false, coords)}
+            hoverCoords={this.state.hoverCoords}
           />
         </div>
         <div className="game-board" id="right">
