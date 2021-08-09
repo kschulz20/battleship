@@ -10,7 +10,7 @@ export default class Square extends React.Component {
         style={{ backgroundColor: this.props.bgColor }} 
         onClick={this.props.onClick}
       >
-        {null}
+        {this.props.hit}
       </button>)
   }
 }

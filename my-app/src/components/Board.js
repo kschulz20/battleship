@@ -5,10 +5,25 @@ import Square from './Square'
 
 export default class Board extends React.Component {
   renderSquare(i) {
+    //Determine what the color of the square should be
+    let squareColor;
+    if (this.props.isPlayer) {
+      if (this.props.board[i].type !== "empty") {
+        squareColor = (this.props.board[i].hit ? "red" : "blue")
+      }
+      else {
+        squareColor = "white";
+      }
+    }
+    else {
+      //AI square
+      squareColor = (this.props.board[i].type !== "empty" && this.props.board[i].hit) ? "red" : "white";
+    }
     return (
       <Square
         value={this.props.board[i]}
-        bgColor={ (this.props.board[i].type !== "empty" ? "blue" : "white") }
+        hit={this.props.board[i].hit ? "X" : null}
+        bgColor={squareColor}
         onClick={() => this.props.onClick(i)}
         key={i}
       />

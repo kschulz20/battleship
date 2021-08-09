@@ -9,13 +9,12 @@ export default class Game extends React.Component {
     this.state = {
       playerBoard: flatten(makeBoard()),
       aiBoard: flatten(makeBoard()),
-      playerNext: true
     };
   }
 
-  handleClick(i) {
-    const aiBoardCopy = this.state.aiBoard.slice();
-    if (this.state.aiBoard.hit === false) {
+  handleAIClick(i) {
+    let aiBoardCopy = this.state.aiBoard.slice();
+    if (this.state.aiBoard[i].hit === false) {
       aiBoardCopy[i].hit = true;
     }
     this.setState({
@@ -29,13 +28,15 @@ export default class Game extends React.Component {
         <div className="game-board" id="left">
           <Board
             board={this.state.playerBoard}
+            isPlayer={true}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-board" id="right">
           <Board
             board={this.state.aiBoard}
-            onClick={(i) => this.handleClick(i)}
+            isPlayer={false}
+            onClick={(i) => this.handleAIClick(i)}
           />
         </div>
         <div className="game-info">
@@ -190,7 +191,15 @@ function makeBoard() {
     }
     return boardCopy;
   }
-  let board = Array(10).fill(null).map(arr => Array(10).fill( { type: "empty", hit: false} ));
+
+  let board = Array(10).fill(null);
+  for(let i = 0; i < board.length; ++i) {
+    let arr = [];
+    for(let j = 0; j < 10; ++j) {
+      arr.push({ type: "empty", hit: false })
+    }
+    board[i] = arr;
+  }
   board = placeShip(board, 2, 'D') 
   board = placeShip(board, 3, 'C');
   board = placeShip(board, 3, 'S');
