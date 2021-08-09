@@ -1,9 +1,9 @@
 Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 create a separate board
-+ make things look good           3
++ make things look good           3  (K)
 
-make squares its own class        13
+make squares its own class        13 (P) DONE
 
 setup ai board                    8
 

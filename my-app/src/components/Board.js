@@ -1,14 +1,7 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
+import Square from './Square'
 
-function Square(props) {
-  return (
-    <button className="square" style={{ backgroundColor: props.bgColor }} onClick={props.onClick}>
-      {null}
-    </button>
-  );
-}
+
 
 export default class Board extends React.Component {
   renderSquare(i) {
@@ -17,6 +10,7 @@ export default class Board extends React.Component {
         value={this.props.board[i]}
         bgColor={ (this.props.board[i].type !== "empty" ? "blue" : "white") }
         onClick={() => this.props.onClick(i)}
+        key={i}
       />
     );
   }
@@ -28,7 +22,7 @@ export default class Board extends React.Component {
       for(let j = 0; j < 10; ++j) {
         squares.push(this.renderSquare(10*i + j));
       }
-      rows.push(<div className="board-row">{squares}</div>)
+      rows.push(<div key={i} className="board-row">{squares}</div>)
     }
     return (
       <div>
