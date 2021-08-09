@@ -17,6 +17,7 @@ ol, ul {
   margin-right: 50px;
 }
 
-.game-info {
-  margin-left: 20px;
+ul {
+  list-style-type: none;
+  margin-right: 16px;
 }

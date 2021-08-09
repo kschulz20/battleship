@@ -7,9 +7,11 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playerBoard: flatten(makeBoard()),
+      playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
-      playerNext: true
+      playerNext: true,
+      shipsPlaced: [false, false, false, false, false],
+      placingShip: ''
     };
   }
 
@@ -22,10 +24,38 @@ export default class Game extends React.Component {
       aiBoard: aiBoardCopy
     })
   }
+
+  placingShip(shipName) {
+    this.setState(() => ({
+      placingShip: shipName
+    }))
+    setTimeout(() => {
+      console.log(this.state.placingShip)
+    }, 1000);
+  }
   
   render() {
     return (
       <div className="game">
+        <div className="ships">
+          <ul>
+            <li>
+              <button onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
+            </li>
+            <li>
+              <button onClick={() => this.placingShip('Battleship')}>Place Battleship</button>
+            </li>
+            <li>
+              <button onClick={() => this.placingShip('Cruiser')}>Place Cruiser</button>
+            </li>
+            <li>
+              <button onClick={() => this.placingShip('Submarine')}>Place Submarine</button>
+            </li>
+            <li>
+              <button onClick={() => this.placingShip('Destroyer')}>Place Destroyer</button>
+            </li>
+          </ul>
+        </div>
         <div className="game-board" id="left">
           <Board
             board={this.state.playerBoard}
@@ -38,15 +68,16 @@ export default class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
           />
         </div>
-        <div className="game-info">
-          <div>{"hi"}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
       </div>
     );
   }
 }
 
+
+function makeEmptyBoard() {
+  let board = Array(10).fill(null).map(arr => Array(10).fill({ type: "empty", hit: false} ));
+  return board;
+}
 // ========================================
 
 //Generating random board code
@@ -59,6 +90,7 @@ function flatten(arr) {
   }
   return newArr;
 }
+
 
 function randomInt(min, max) { 
   return Math.floor(Math.random() * (max - min)) + min;

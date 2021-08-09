@@ -18,10 +18,15 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [ ] make player ships draggable       13 
 
+- [ ] allow for rotations while dragging
+
 - [ ] add a ready button that starts    5
 the game
 
 - [ ] write ai for 2nd board            21
+
+- [ ] update square visuals so user
+      can differentiate b/n ships
 
 
 # Getting Started with Create React App
