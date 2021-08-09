@@ -14,7 +14,13 @@ export default class Game extends React.Component {
   }
 
   handleClick(i) {
-    console.log("hello");
+    const aiBoardCopy = this.state.aiBoard.slice();
+    if (this.state.aiBoard.hit === false) {
+      aiBoardCopy[i].hit = true;
+    }
+    this.setState({
+      aiBoard: aiBoardCopy
+    })
   }
   
   render() {
