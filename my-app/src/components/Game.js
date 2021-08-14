@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board'
+import AIBoard from './AIBoard'
 import './Game.css'
 
 
