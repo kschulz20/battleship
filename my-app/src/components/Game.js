@@ -29,7 +29,7 @@ export default class Game extends React.Component {
   }
 
   handleKeyPress(e) {
-    if (e.keyCode === 82) {
+    if (e.keyCode === 82) { /* R */
       switch (this.state.orientation) {
         case 'up':
           this.setState({orientation: 'right'})
@@ -46,7 +46,23 @@ export default class Game extends React.Component {
         default:
           console.log(`Unexpected state: ${this.state.orientation}`)         
       }
-      console.log(`R pressed. State is now ${this.state.orientation}`)
+    } else if (e.keyCode === 69) { /* E */
+      switch (this.state.orientation) {
+        case 'up':
+          this.setState({orientation: 'left'})
+          break;
+        case 'right':
+          this.setState({orientation: 'up'})
+          break;
+        case 'down':
+          this.setState({orientation: 'right'})
+          break;
+        case 'left':
+          this.setState({orientation: 'down'})
+          break;
+        default:
+          console.log(`Unexpected state: ${this.state.orientation}`)         
+      }
     }
   }
 

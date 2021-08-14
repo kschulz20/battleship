@@ -19,13 +19,13 @@ export default class Board extends React.Component {
       switch(orientation) {
         case 'left':
           isAlsoHovered = 
-            Math.floor(mouseSquare/10) - Math.floor(currSquare/10) == 0 && /* on the same row*/
+            Math.floor(mouseSquare/10) - Math.floor(currSquare/10) === 0 && /* on the same row*/
             mouseSquare - currSquare < length &&
             currSquare <= mouseSquare
           break;
         case 'right':
           isAlsoHovered = 
-          Math.floor(mouseSquare/10) - Math.floor(currSquare/10) == 0 && /* on the same row*/
+          Math.floor(mouseSquare/10) - Math.floor(currSquare/10) === 0 && /* on the same row*/
            currSquare - mouseSquare < length &&
            currSquare >= mouseSquare
         break;
@@ -42,7 +42,7 @@ export default class Board extends React.Component {
             mouseSquare%10 === currSquare%10
       }
     return isAlsoHovered
-    // TODO: change to implement out of bounds and rotations
+    // TODO: change to implement out of bounds
 
   }
 

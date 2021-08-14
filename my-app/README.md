@@ -20,9 +20,10 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [x] implement random ai               5
 
-- [ ] make player ships draggable       144 
+- [ ] allow users to hover and see 
+      ship placement                    144 
 
-- [ ] allow for rotations while dragging
+- [x] allow for rotations                  (P)
 
 - [ ] add a ready button that starts    5
 the game
