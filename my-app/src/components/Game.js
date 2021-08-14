@@ -86,21 +86,8 @@ export default class Game extends React.Component {
         console.log(`placing Destroyer at ${i}`)
         break;
       default: 
-        let aiBoardCopy = this.state.aiBoard.slice();
-        let playerBoardCopy = this.state.playerBoard.slice();
-        
-        //Mark this square as being hit
-        if (this.state.aiBoard[i].hit === false) {
-          aiBoardCopy[i].hit = true;
-        }
-    
-        //Let AI take its turn
-        playerBoardCopy[randomInt(0, 100)].hit = true;
-    
-        this.setState({
-          playerBoard: playerBoardCopy,
-          aiBoard: aiBoardCopy
-        })
+        console.log("No ship selected.");
+        break;
     }
   }
 
@@ -142,7 +129,6 @@ export default class Game extends React.Component {
         <div className="game-board" id="left">
           <Board
             board={this.state.playerBoard}
-            isPlayer={true}
             placingShip={this.state.placingShip}
             handlePlayerClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
             onMouseEnter={(coords) => this.handleHover(true, coords)}
@@ -151,13 +137,10 @@ export default class Game extends React.Component {
           />
         </div>
         <div className="game-board" id="right">
-          <Board
+          <AIBoard
             board={this.state.aiBoard}
             isPlayer={false}
-            onClick={(i) => this.handlePlayerClick(null,i)}
-            handlePlayerClick={(i) => this.handlePlayerClick(null,i)}
-            onMouseEnter={(coords) => this.no}
-            onMouseLeave={(coords) => this.no}
+            onClick={(i) => this.handleAIClick(i)}
           />
         </div>
       </div>
