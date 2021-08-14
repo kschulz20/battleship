@@ -35,8 +35,9 @@ export default class Game extends React.Component {
   }
 
   handleHover(entering, coords) {
+    console.log(entering, coords)
     if (entering && this.placingShip) this.setState({hoverCoords: coords})
-    else this.setState({hover: -1})
+    else this.setState({hoverCoords: -1})
   }
 
   handlePlayerClick(shipName, i) {
