@@ -25,8 +25,11 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [x] allow for rotations                  (P)
 
-- [ ] add a ready button that starts    5
+- [x] add a ready button that starts    5
 the game
+
+- [ ] add status message to signify     8 (K)
+      player sunk ship
 
 - [ ] write ai for 2nd board            21
 

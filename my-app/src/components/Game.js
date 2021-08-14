@@ -201,7 +201,7 @@ export default class Game extends React.Component {
     let disableStart = true;
 
     //If the game isn't started and all the ships have been placed, enable the start button
-    if (!this.gameStart && this.checkShips()) {
+    if (!this.state.gameStart && this.checkShips()) {
       disableStart = false;
     }
 
