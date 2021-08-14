@@ -44,7 +44,6 @@ export default class Game extends React.Component {
   }
 
   handleHover(entering, coords) {
-    console.log(entering, coords)
     if (entering && this.placingShip) this.setState({hoverCoords: coords})
     else this.setState({hoverCoords: -1})
   }
@@ -53,7 +52,7 @@ export default class Game extends React.Component {
     // TODO put error handling here
     let shipsPlaced;
     let shipPlaced
-    this.setState(() => ({placingShip: ''}))
+    this.setState({placingShip: ''})
     switch(shipName) {
       case 'ACarrier':
         shipsPlaced = [...this.state.shipsPlaced]

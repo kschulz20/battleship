@@ -6,6 +6,22 @@ import './Board.css'
 
 export default class Board extends React.Component {
 
+  /* returns true if square should be set as hovered based on current hovered square*/
+  checkHover(mouseSquare, currSquare, shipType) {
+    let length;
+    length = shipType === 'ACarrier' ? 5 
+      : shipType === 'Battleship' ? 4
+      : shipType === 'Cruiser' ? 3
+      : shipType === 'Submarine' ? 3
+      : shipType === 'Destroyer' ? 2
+      : 1
+
+    return mouseSquare >= currSquare && 
+      mouseSquare/10 - currSquare/10 < length && 
+      mouseSquare%10 === currSquare%10// TODO: change to implement out of bounds and rotations
+
+  }
+
   renderSquare(i) {
     // //Determine what the color of the square should be
     let squareColor;
@@ -18,7 +34,7 @@ export default class Board extends React.Component {
         squareColor = "white";
       }
 
-      name = i === this.props.hoverCoords && this.props.placingShip ? 'square hover' : 'square'
+      name = this.checkHover(this.props.hoverCoords, i, this.props.placingShip) ? 'square hover' : 'square'
 
       return (
         <Square
