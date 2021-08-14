@@ -209,19 +209,24 @@ export default class Game extends React.Component {
             </button>
             <ul>
               <li>
-                <button onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
+                <button disable={this.state.shipsPlaced[0].ACarrier ? true : false}
+                        onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
               </li>
               <li>
-                <button onClick={() => this.placingShip('Battleship')}>Place Battleship</button>
+                <button disable={this.state.shipsPlaced[1].Battleship ? true : false}
+                        onClick={() => this.placingShip('Battleship')}>Place Battleship</button>
               </li>
               <li>
-                <button onClick={() => this.placingShip('Cruiser')}>Place Cruiser</button>
+                <button disable={this.state.shipsPlaced[2].Cruiser ? true : false}
+                        onClick={() => this.placingShip('Cruiser')}>Place Cruiser</button>
               </li>
               <li>
-                <button onClick={() => this.placingShip('Submarine')}>Place Submarine</button>
+                <button disable={this.state.shipsPlaced[3].Submarine ? true : false}
+                        onClick={() => this.placingShip('Submarine')}>Place Submarine</button>
               </li>
               <li>
-                <button onClick={() => this.placingShip('Destroyer')}>Place Destroyer</button>
+                <button disable={this.state.shipsPlaced[4].Destroyer ? true : false}
+                        onClick={() => this.placingShip('Destroyer')}>Place Destroyer</button>
               </li>
             </ul>
           </div>
