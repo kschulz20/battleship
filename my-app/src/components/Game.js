@@ -172,10 +172,15 @@ export default class Game extends React.Component {
 
   }
 
+  //Signifies that the game has started - only runs once
   handleStartClick() {
+    this.setState({gameStart: true})
+    return;
+  }
+
+  //Checks if all the ships have been placed and returns true if they have
+  checkShips() {
     let ready = true;
-    console.log(this.state.shipsPlaced);
-    //Check if all the ships have been placed
     for(let obj in this.state.shipsPlaced) {
       for(let bool in this.state.shipsPlaced[obj]) {
         if (!this.state.shipsPlaced[obj][bool]) {
@@ -183,21 +188,23 @@ export default class Game extends React.Component {
         }
       }
     }
-
-    //If all ships have been placed, allow the game to be started
-    if (ready) {
-      this.setState({gameStart: true});
-    }
-    return;
+    return ready;
   }
   
   render() {
-    let playerStatus = this.state.gameStart ? "Game ready" : "Place all ships to start"
+    const playerStatus = this.state.gameStart ? "Game ready" : "Place all ships to start"
+    let disableStart = true;
+
+    //If the game isn't started and all the ships have been placed, enable the start button
+    if (!this.gameStart && this.checkShips()) {
+      disableStart = false;
+    }
+
     return (
       <>
         <div className="game">
           <div className="ships">
-            <button className="start-button" onClick={() => this.handleStartClick()}>
+            <button className="start-button" disabled={disableStart} onClick={() => this.handleStartClick()}>
               {"Start Game"}
             </button>
             <ul>
