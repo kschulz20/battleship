@@ -163,11 +163,11 @@ const makeBoard = () => {
     }
     board[i] = arr;
   }
-  board = placeShip(board, 2, 'D') 
-  board = placeShip(board, 3, 'C');
-  board = placeShip(board, 3, 'S');
-  board = placeShip(board, 4, 'B');
-  board = placeShip(board, 5, 'A');
+  board = placeShip(board, 2, 'Destroyer') 
+  board = placeShip(board, 3, 'Cruiser');
+  board = placeShip(board, 3, 'Submarine');
+  board = placeShip(board, 4, 'Battleship');
+  board = placeShip(board, 5, 'ACarrier');
   return board;
 }
 
