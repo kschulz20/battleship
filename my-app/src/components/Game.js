@@ -7,6 +7,7 @@ import './Game.css'
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
+    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.state = {
       playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
@@ -15,8 +16,38 @@ export default class Game extends React.Component {
       placingShip: '',
       hoverCoords: -1,
       gameStart: false,
-      orientation: ''
+      orientation: 'up'
     };
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress)
+  }
+
+  handleKeyPress(e) {
+    if (e.keyCode === 82) {
+      switch (this.state.orientation) {
+        case 'up':
+          this.setState({orientation: 'right'})
+          break;
+        case 'right':
+          this.setState({orientation: 'down'})
+          break;
+        case 'down':
+          this.setState({orientation: 'left'})
+          break;
+        case 'left':
+          this.setState({orientation: 'up'})
+          break;
+        default:
+          console.log(`Unexpected state: ${this.state.orientation}`)         
+      }
+      console.log(`R pressed. State is now ${this.state.orientation}`)
+    }
   }
 
   handleAIClick(i) {
@@ -173,6 +204,7 @@ export default class Game extends React.Component {
               onMouseEnter={(coords) => this.handleHover(true, coords)}
               onMouseLeave={(coords) => this.handleHover(false, coords)}
               hoverCoords={this.state.hoverCoords}
+              orientation={this.state.orientation}
             />
           </div>
           <div className="game-board" id="right">
