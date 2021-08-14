@@ -6,7 +6,6 @@ export default class AISquare extends React.Component {
 
   render() {
     const {
-      shipType,
       coords,
       className,
       hit

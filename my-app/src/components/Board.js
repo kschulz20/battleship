@@ -15,9 +15,8 @@ export default class Board extends React.Component {
       : shipType === 'Submarine' ? 3
       : shipType === 'Destroyer' ? 2
       : 1
-
     return mouseSquare >= currSquare && 
-      mouseSquare/10 - currSquare/10 < length && 
+      Math.floor(mouseSquare/10) - Math.floor(currSquare/10) < length && 
       mouseSquare%10 === currSquare%10// TODO: change to implement out of bounds and rotations
 
   }
