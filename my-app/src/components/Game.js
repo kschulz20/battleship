@@ -15,7 +15,8 @@ export default class Game extends React.Component {
       allShipsPlaced: false,
       placingShip: '',
       hoverCoords: -1,
-      gameStart: false
+      gameStart: false,
+      orientation: ''
     };
   }
 
@@ -132,46 +133,51 @@ export default class Game extends React.Component {
   
   render() {
     return (
-      <div className="game">
-        <div className="ships">
-          <button className="start-button" onClick={() => this.handleStartClick()}>
-            {"Start Game"}
-          </button>
-          <ul>
-            <li>
-              <button onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
-            </li>
-            <li>
-              <button onClick={() => this.placingShip('Battleship')}>Place Battleship</button>
-            </li>
-            <li>
-              <button onClick={() => this.placingShip('Cruiser')}>Place Cruiser</button>
-            </li>
-            <li>
-              <button onClick={() => this.placingShip('Submarine')}>Place Submarine</button>
-            </li>
-            <li>
-              <button onClick={() => this.placingShip('Destroyer')}>Place Destroyer</button>
-            </li>
-          </ul>
+      <>
+        <div className="game">
+          <div className="ships">
+            <button className="start-button" onClick={() => this.handleStartClick()}>
+              {"Start Game"}
+            </button>
+            <ul>
+              <li>
+                <button onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
+              </li>
+              <li>
+                <button onClick={() => this.placingShip('Battleship')}>Place Battleship</button>
+              </li>
+              <li>
+                <button onClick={() => this.placingShip('Cruiser')}>Place Cruiser</button>
+              </li>
+              <li>
+                <button onClick={() => this.placingShip('Submarine')}>Place Submarine</button>
+              </li>
+              <li>
+                <button onClick={() => this.placingShip('Destroyer')}>Place Destroyer</button>
+              </li>
+            </ul>
+          </div>
+          <div className="game-board" id="left">
+            <Board
+              board={this.state.playerBoard}
+              placingShip={this.state.placingShip}
+              onClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
+              onMouseEnter={(coords) => this.handleHover(true, coords)}
+              onMouseLeave={(coords) => this.handleHover(false, coords)}
+              hoverCoords={this.state.hoverCoords}
+            />
+          </div>
+          <div className="game-board" id="right">
+            <AIBoard
+              board={this.state.aiBoard}
+              onClick={(i) => this.handleAIClick(i)}
+            />
+          </div>
         </div>
-        <div className="game-board" id="left">
-          <Board
-            board={this.state.playerBoard}
-            placingShip={this.state.placingShip}
-            onClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
-            onMouseEnter={(coords) => this.handleHover(true, coords)}
-            onMouseLeave={(coords) => this.handleHover(false, coords)}
-            hoverCoords={this.state.hoverCoords}
-          />
+        <div>
+          <p></p>
         </div>
-        <div className="game-board" id="right">
-          <AIBoard
-            board={this.state.aiBoard}
-            onClick={(i) => this.handleAIClick(i)}
-          />
-        </div>
-      </div>
+      </>
     );
   }
 }

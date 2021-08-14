@@ -7,7 +7,7 @@ import './Board.css'
 export default class Board extends React.Component {
 
   /* returns true if square should be set as hovered based on current hovered square*/
-  checkHover(mouseSquare, currSquare, shipType) {
+  checkHover(mouseSquare, currSquare, shipType, orientation = 'up') {
     let length;
     length = shipType === 'ACarrier' ? 5 
       : shipType === 'Battleship' ? 4
@@ -15,9 +15,24 @@ export default class Board extends React.Component {
       : shipType === 'Submarine' ? 3
       : shipType === 'Destroyer' ? 2
       : 1
-    return mouseSquare >= currSquare && 
-      Math.floor(mouseSquare/10) - Math.floor(currSquare/10) < length && 
-      mouseSquare%10 === currSquare%10// TODO: change to implement out of bounds and rotations
+    let isAlsoHovered;
+      switch(orientation) {
+        case 'left':
+          isAlsoHovered = 
+            Math.floor(mouseSquare/10) - Math.floor(currSquare/10) == 0 && /* on the same row*/
+            mouseSquare - currSquare < length
+        case 'right':
+
+        case 'down':
+
+        default:
+          isAlsoHovered = 
+            mouseSquare >= currSquare && 
+            Math.floor(mouseSquare/10) - Math.floor(currSquare/10) < length && 
+            mouseSquare%10 === currSquare%10
+      }
+    return isAlsoHovered
+    // TODO: change to implement out of bounds and rotations
 
   }
 
