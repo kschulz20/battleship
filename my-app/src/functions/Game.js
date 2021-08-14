@@ -89,11 +89,11 @@ const makeBoard = () => {
     }
     board[i] = arr;
   }
-  board = placeRandomShip(board, 2, 'D') 
-  board = placeRandomShip(board, 3, 'C');
-  board = placeRandomShip(board, 3, 'S');
-  board = placeRandomShip(board, 4, 'B');
-  board = placeRandomShip(board, 5, 'A');
+  board = placeRandomShip(board, 2, 'Destroyer') 
+  board = placeRandomShip(board, 3, 'Cruiser');
+  board = placeRandomShip(board, 3, 'Submarine');
+  board = placeRandomShip(board, 4, 'Battleship');
+  board = placeRandomShip(board, 5, 'ACarrier');
   return board;
 }
 
