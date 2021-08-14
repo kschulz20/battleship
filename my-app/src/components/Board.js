@@ -19,17 +19,12 @@ export default class Board extends React.Component {
       }
 
       name = i === this.props.hoverCoords && this.props.placingShip ? 'square hover' : 'square'
-    // if (i === this.props.hoverCoords && this.props.placingShip) {
-    //   name = 'square hover'
-    // } else {
-    //   name = 'square'
-    // }
+
       return (
         <Square
           coords={i}
-          onClick={(ix) => this.props.handlePlayerClick(ix)}
+          onClick={(ix) => this.props.onClick(ix)}
           shipType={this.props.board[i].type}
-          bgColor={squareColor}
           onMouseEnter={(coords) => this.props.onMouseEnter(coords)}
           onMouseLeave={(coords) => this.props.onMouseLeave(coords)}
           className={name}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Square from './Square'
+import Square from './AISquare'
 import './Board.css'
 
 export default class AIBoard extends React.Component {
@@ -13,18 +13,11 @@ export default class AIBoard extends React.Component {
     return (
       <Square
         coords={i}
-        onClick={(ix) => this.props.onClick(ix)} // todo change to ai click
-        shipType={this.props.board[i].type}
+        onClick={(ix) => this.props.onClick(ix)}
         bgColor={squareColor}
         hit={this.props.board[i].hit ? "X" : null}
         className='square'
         key={i}
-        onMouseEnter={() => {
-          console.log('aiEnter')
-        }}
-        onMouseLeave={() => {
-          console.log('aiLeave')
-        }}
       />
     );
 

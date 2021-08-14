@@ -131,7 +131,7 @@ export default class Game extends React.Component {
           <Board
             board={this.state.playerBoard}
             placingShip={this.state.placingShip}
-            handlePlayerClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
+            onClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
             onMouseEnter={(coords) => this.handleHover(true, coords)}
             onMouseLeave={(coords) => this.handleHover(false, coords)}
             hoverCoords={this.state.hoverCoords}
