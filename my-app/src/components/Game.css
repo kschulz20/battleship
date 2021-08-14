@@ -21,3 +21,8 @@ ul {
   list-style-type: none;
   margin-right: 16px;
 }
+
+.player-status {
+  text-align: center;
+  margin-right: 200px;
+}

@@ -12,7 +12,6 @@ export default class Game extends React.Component {
       aiBoard: flatten(makeBoard()),
       playerNext: true,
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
-      allShipsPlaced: false,
       placingShip: '',
       hoverCoords: -1,
       gameStart: false,
@@ -121,17 +120,26 @@ export default class Game extends React.Component {
   }
 
   handleStartClick() {
-    //If all the ships have been placed, start the game
-    if (this.state.allShipsPlaced) {
-      this.setState({gameStart: true});
+    let ready = true;
+    console.log(this.state.shipsPlaced);
+    //Check if all the ships have been placed
+    for(let obj in this.state.shipsPlaced) {
+      for(let bool in this.state.shipsPlaced[obj]) {
+        if (!this.state.shipsPlaced[obj][bool]) {
+          ready = false;
+        }
+      }
     }
-    else {
-      //Change status of board
+
+    //If all ships have been placed, allow the game to be started
+    if (ready) {
+      this.setState({gameStart: true});
     }
     return;
   }
   
   render() {
+    let playerStatus = this.state.gameStart ? "Game ready" : "Place all ships to start"
     return (
       <>
         <div className="game">
@@ -173,6 +181,9 @@ export default class Game extends React.Component {
               onClick={(i) => this.handleAIClick(i)}
             />
           </div>
+        </div>
+        <div className="player-status">
+          {playerStatus}
         </div>
         <div>
           <p></p>
