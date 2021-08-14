@@ -25,6 +25,7 @@ export default class Board extends React.Component {
           coords={i}
           onClick={(ix) => this.props.onClick(ix)}
           shipType={this.props.board[i].type}
+          hit={this.props.board[i].hit ? "X" : null}
           onMouseEnter={(coords) => this.props.onMouseEnter(coords)}
           onMouseLeave={(coords) => this.props.onMouseLeave(coords)}
           className={name}
