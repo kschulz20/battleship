@@ -12,12 +12,19 @@ export default class Game extends React.Component {
       aiBoard: flatten(makeBoard()),
       playerNext: true,
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
+      allShipsPlaced: false,
       placingShip: '',
-      hoverCoords: -1
+      hoverCoords: -1,
+      gameStart: false
     };
   }
 
   handleAIClick(i) {
+    //If the game hasn't been started, don't let player click this board
+    if (this.state.gameStart === false) {
+      return;
+    }
+
     let aiBoardCopy = this.state.aiBoard.slice();
     let playerBoardCopy = this.state.playerBoard.slice();
     let aiTakeTurn = true;
@@ -32,7 +39,7 @@ export default class Game extends React.Component {
     }
 
     //Let AI take its turn
-    //If square has already been hit, do not let AI take its turn
+    //If square hasn't been hit yet, let AI take its turn, else do nothing
     if (aiTakeTurn) {
       playerBoardCopy[randomInt(0, 100)].hit = true;
 
@@ -111,11 +118,25 @@ export default class Game extends React.Component {
   no() {
 
   }
+
+  handleStartClick() {
+    //If all the ships have been placed, start the game
+    if (this.state.allShipsPlaced) {
+      this.setState({gameStart: true});
+    }
+    else {
+      //Change status of board
+    }
+    return;
+  }
   
   render() {
     return (
       <div className="game">
         <div className="ships">
+          <button className="start-button" onClick={() => this.handleStartClick()}>
+            {"Start Game"}
+          </button>
           <ul>
             <li>
               <button onClick={() => this.placingShip('ACarrier')}>Place ACarrier</button>
@@ -147,7 +168,6 @@ export default class Game extends React.Component {
         <div className="game-board" id="right">
           <AIBoard
             board={this.state.aiBoard}
-            isPlayer={false}
             onClick={(i) => this.handleAIClick(i)}
           />
         </div>
