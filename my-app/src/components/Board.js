@@ -20,11 +20,21 @@ export default class Board extends React.Component {
         case 'left':
           isAlsoHovered = 
             Math.floor(mouseSquare/10) - Math.floor(currSquare/10) == 0 && /* on the same row*/
-            mouseSquare - currSquare < length
+            mouseSquare - currSquare < length &&
+            currSquare <= mouseSquare
+          break;
         case 'right':
-
+          isAlsoHovered = 
+          Math.floor(mouseSquare/10) - Math.floor(currSquare/10) == 0 && /* on the same row*/
+           currSquare - mouseSquare < length &&
+           currSquare >= mouseSquare
+        break;
         case 'down':
-
+          isAlsoHovered = 
+            mouseSquare <= currSquare && 
+            Math.floor(currSquare/10) - Math.floor(mouseSquare/10) < length && 
+            mouseSquare%10 === currSquare%10
+            break;
         default:
           isAlsoHovered = 
             mouseSquare >= currSquare && 
@@ -48,7 +58,7 @@ export default class Board extends React.Component {
         squareColor = "white";
       }
 
-      name = this.checkHover(this.props.hoverCoords, i, this.props.placingShip) ? 'square hover' : 'square'
+      name = this.checkHover(this.props.hoverCoords, i, this.props.placingShip, this.props.orientation) ? 'square hover' : 'square'
 
       return (
         <Square
