@@ -109,52 +109,61 @@ export default class Game extends React.Component {
     else this.setState({hoverCoords: -1})
   }
   
-  placeShip(shipName, i) { /* use this.state.orientation too */
-
+  placeShip(shipName, i) { /* use this.state.orientation too and add error handling */
+    let playerBoard
+    playerBoard = update(this.state.playerBoard, {
+      [i]: {$set: {hit: false, type: shipName}}
+    })
+    this.setState({playerBoard})
   }
 
   handlePlayerClick(shipName, i) {
     // TODO put error handling here
     this.setState({placingShip: ''})
-    let newShipsPlaced
+    let shipsPlaced
     switch(shipName) {
       case 'ACarrier':
-        newShipsPlaced = update(this.state.shipsPlaced, {
-          [0]: {$set: {ACarrier: true}}
+        shipsPlaced = update(this.state.shipsPlaced, {
+          0: {$set: {ACarrier: true}}
         })
-        this.setState({shipsPlaced: newShipsPlaced})
+        this.setState({shipsPlaced})
+        this.placeShip(shipName, i)
         console.log(`placing ACarrier at ${i}`)
         break;
         
       case 'Battleship':
-        newShipsPlaced = update(this.state.shipsPlaced, {
-          [1]: {$set: {Battleship: true}}
+        shipsPlaced = update(this.state.shipsPlaced, {
+          1: {$set: {Battleship: true}}
         })
-        this.setState({shipsPlaced: newShipsPlaced})
+        this.setState({shipsPlaced})
+        this.placeShip(shipName, i)
         console.log(`placing Battleship at ${i}`)
         break;
         
       case 'Cruiser':
-        newShipsPlaced = update(this.state.shipsPlaced, {
-          [2]: {$set: {Cruiser: true}}
+        shipsPlaced = update(this.state.shipsPlaced, {
+          2: {$set: {Cruiser: true}}
         })
-        this.setState({shipsPlaced: newShipsPlaced})
+        this.setState({shipsPlaced})
+        this.placeShip(shipName, i)
         console.log(`placing Cruiser at ${i}`)
         break;
         
       case 'Submarine':
-        newShipsPlaced = update(this.state.shipsPlaced, {
-          [3]: {$set: {Submarine: true}}
+        shipsPlaced = update(this.state.shipsPlaced, {
+          3: {$set: {Submarine: true}}
         })
-        this.setState({shipsPlaced: newShipsPlaced})
+        this.setState({shipsPlaced})
+        this.placeShip(shipName, i)
         console.log(`placing Submarine at ${i}`)
         break;
         
       case 'Destroyer':
-        newShipsPlaced = update(this.state.shipsPlaced, {
-          [4]: {$set: {Destroyer: true}}
+        shipsPlaced = update(this.state.shipsPlaced, {
+          4: {$set: {Destroyer: true}}
         })
-        this.setState({shipsPlaced: newShipsPlaced})
+        this.setState({shipsPlaced})
+        this.placeShip(shipName, i)
         console.log(`placing Destroyer at ${i}`)
         break;
       default: 

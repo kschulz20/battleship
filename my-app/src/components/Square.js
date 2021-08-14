@@ -5,12 +5,15 @@ export default class Square extends React.Component {
 
 
   render() {
-    const {
+    let {
       shipType,
       coords,
       className,
       hit
     } = this.props
+    if (shipType !== 'empty') {
+      className += ` ${shipType}`
+    }
     return (    
       <button 
         className={className}

@@ -18,9 +18,25 @@
   outline: none;
 }
 
-/* .square {
-  background: white;
-} */
+.ACarrier {
+  background: blue;
+}
+
+.Battleship {
+  background: blue;
+}
+
+.Cruiser {
+  background: blue;
+}
+
+.Submarine {
+  background: blue;
+}
+
+.Destroyer {
+  background: blue;
+}
 
 .hover {
   background: darkblue;
