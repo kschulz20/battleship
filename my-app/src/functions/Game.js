@@ -81,80 +81,6 @@ const checkHorizontal = (board, xPos, yPos, size, dir) => {
 }
 
 const makeBoard = () => {
-  function placeShip(board, size, type) {
-    let removeDirection = (arr, type) => directions.filter(d => d !== type);
-
-    let boardCopy = board.slice(0, board.length);
-    let directions = ['n', 'e', 's', 'w'];
-    let xPos = randomInt(0, 10);
-    let yPos = randomInt(0, 10);
-    let place = true;
-    while(place) {
-      //If trying to place ship in impossible place (i.e., no more directions to try), 
-      //try to place it somewhere else and refresh directions array.
-      if (directions.length === 0) {
-        xPos = randomInt(0, 10);
-        yPos = randomInt(0, 10);
-        directions = ['n', 'e', 's', 'w'];
-      }
-      let dir = directions[randomInt(0, directions.length)];
-      switch(dir) {
-        case 'n': {
-          if (checkVertical(boardCopy, xPos, yPos, size, 'n')) {
-            place = false;
-            for(let i = 0; i < size; ++i) {
-              boardCopy[xPos][yPos - i] = { type: type, hit: false };
-            }
-          }
-          else {
-            directions = removeDirection(directions, 'n');
-          }
-          break;
-        }
-        case 'e': {
-          if (checkHorizontal(boardCopy, xPos, yPos, size, 'e')) {
-            place = false;
-            for(let i = 0; i < size; ++i) {
-              boardCopy[xPos + i][yPos] = { type: type, hit: false };
-            }
-          }
-          else {
-            directions = removeDirection(directions, 'e');
-          }
-          break;
-        }
-        case 's': {
-          if (checkVertical(boardCopy, xPos, yPos, size, 's')) {
-            place = false;
-            for(let i = 0; i < size; ++i) {
-              boardCopy[xPos][yPos + i] = { type: type, hit: false };
-            }
-          }
-          else {
-            directions = removeDirection(directions, 's');
-          }
-          break;
-        }
-        case 'w': {
-          if (checkHorizontal(boardCopy, xPos, yPos, size, 'w')) {
-            place = false;
-            for(let i = 0; i < size; ++i) {
-              boardCopy[xPos - i][yPos] = { type: type, hit: false };
-            }
-          }
-          else {
-            directions = removeDirection(directions, 'w');
-          }
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    }
-    return boardCopy;
-  }
-
   let board = Array(10).fill(null);
   for(let i = 0; i < board.length; ++i) {
     let arr = [];
@@ -163,17 +89,92 @@ const makeBoard = () => {
     }
     board[i] = arr;
   }
-  board = placeShip(board, 2, 'Destroyer') 
-  board = placeShip(board, 3, 'Cruiser');
-  board = placeShip(board, 3, 'Submarine');
-  board = placeShip(board, 4, 'Battleship');
-  board = placeShip(board, 5, 'ACarrier');
+  board = placeRandomShip(board, 2, 'D') 
+  board = placeRandomShip(board, 3, 'C');
+  board = placeRandomShip(board, 3, 'S');
+  board = placeRandomShip(board, 4, 'B');
+  board = placeRandomShip(board, 5, 'A');
   return board;
+}
+
+const placeRandomShip = (board, size, type)  => {
+  let removeDirection = (arr, type) => directions.filter(d => d !== type);
+
+  let boardCopy = board.slice(0, board.length);
+  let directions = ['n', 'e', 's', 'w'];
+  let xPos = randomInt(0, 10);
+  let yPos = randomInt(0, 10);
+  let place = true;
+  while(place) {
+    //If trying to place ship in impossible place (i.e., no more directions to try), 
+    //try to place it somewhere else and refresh directions array.
+    if (directions.length === 0) {
+      xPos = randomInt(0, 10);
+      yPos = randomInt(0, 10);
+      directions = ['n', 'e', 's', 'w'];
+    }
+    let dir = directions[randomInt(0, directions.length)];
+    switch(dir) {
+      case 'n': {
+        if (checkVertical(boardCopy, xPos, yPos, size, 'n')) {
+          place = false;
+          for(let i = 0; i < size; ++i) {
+            boardCopy[xPos][yPos - i] = { type: type, hit: false };
+          }
+        }
+        else {
+          directions = removeDirection(directions, 'n');
+        }
+        break;
+      }
+      case 'e': {
+        if (checkHorizontal(boardCopy, xPos, yPos, size, 'e')) {
+          place = false;
+          for(let i = 0; i < size; ++i) {
+            boardCopy[xPos + i][yPos] = { type: type, hit: false };
+          }
+        }
+        else {
+          directions = removeDirection(directions, 'e');
+        }
+        break;
+      }
+      case 's': {
+        if (checkVertical(boardCopy, xPos, yPos, size, 's')) {
+          place = false;
+          for(let i = 0; i < size; ++i) {
+            boardCopy[xPos][yPos + i] = { type: type, hit: false };
+          }
+        }
+        else {
+          directions = removeDirection(directions, 's');
+        }
+        break;
+      }
+      case 'w': {
+        if (checkHorizontal(boardCopy, xPos, yPos, size, 'w')) {
+          place = false;
+          for(let i = 0; i < size; ++i) {
+            boardCopy[xPos - i][yPos] = { type: type, hit: false };
+          }
+        }
+        else {
+          directions = removeDirection(directions, 'w');
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+  return boardCopy;
 }
 
 module.exports = {
   makeEmptyBoard,
   flatten,
   randomInt,
-  makeBoard
+  makeBoard,
+  
 }

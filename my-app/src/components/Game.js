@@ -6,8 +6,9 @@ import {
   makeEmptyBoard,
   flatten,
   randomInt,
-  makeBoard 
+  makeBoard,
 } from '../functions/Game'
+import update from 'immutability-helper'
 
 
 export default class Game extends React.Component {
@@ -107,50 +108,53 @@ export default class Game extends React.Component {
     if (entering && this.placingShip) this.setState({hoverCoords: coords})
     else this.setState({hoverCoords: -1})
   }
+  
+  placeShip(shipName, i) { /* use this.state.orientation too */
+
+  }
 
   handlePlayerClick(shipName, i) {
     // TODO put error handling here
-    let shipsPlaced;
-    let shipPlaced
     this.setState({placingShip: ''})
+    let newShipsPlaced
     switch(shipName) {
       case 'ACarrier':
-        shipsPlaced = [...this.state.shipsPlaced]
-        shipPlaced = {...shipsPlaced[0], ACarrier: true}
-        shipsPlaced[0] = shipPlaced
-        this.setState(shipsPlaced)
+        newShipsPlaced = update(this.state.shipsPlaced, {
+          [0]: {$set: {ACarrier: true}}
+        })
+        this.setState({shipsPlaced: newShipsPlaced})
         console.log(`placing ACarrier at ${i}`)
         break;
         
       case 'Battleship':
-        shipsPlaced = [...this.state.shipsPlaced]
-        shipPlaced = {...shipsPlaced[1], Battleship: true}
-        shipsPlaced[1] = shipPlaced
-        this.setState(shipsPlaced)
+        newShipsPlaced = update(this.state.shipsPlaced, {
+          [1]: {$set: {Battleship: true}}
+        })
+        this.setState({shipsPlaced: newShipsPlaced})
         console.log(`placing Battleship at ${i}`)
         break;
         
       case 'Cruiser':
-        shipsPlaced = [...this.state.shipsPlaced]
-        shipPlaced = {...shipsPlaced[2], Cruiser: true}
-        shipsPlaced[2] = shipPlaced
-        this.setState(shipsPlaced)
+        newShipsPlaced = update(this.state.shipsPlaced, {
+          [2]: {$set: {Cruiser: true}}
+        })
+        this.setState({shipsPlaced: newShipsPlaced})
         console.log(`placing Cruiser at ${i}`)
         break;
         
       case 'Submarine':
-        shipsPlaced = [...this.state.shipsPlaced]
-        shipPlaced = {...shipsPlaced[3], Submarine: true}
-        shipsPlaced[3] = shipPlaced
-        this.setState(shipsPlaced)
+        newShipsPlaced = update(this.state.shipsPlaced, {
+          [3]: {$set: {Submarine: true}}
+        })
+        this.setState({shipsPlaced: newShipsPlaced})
         console.log(`placing Submarine at ${i}`)
         break;
         
       case 'Destroyer':
-        shipsPlaced = [...this.state.shipsPlaced]
-        shipPlaced = {...shipsPlaced[4], Destroyer: true}
-        shipsPlaced[4] = shipPlaced
-        this.setState(shipsPlaced)
+        newShipsPlaced = update(this.state.shipsPlaced, {
+          [4]: {$set: {Destroyer: true}}
+        })
+        this.setState({shipsPlaced: newShipsPlaced})
         console.log(`placing Destroyer at ${i}`)
         break;
       default: 
@@ -163,19 +167,11 @@ export default class Game extends React.Component {
     this.setState(() => ({
       placingShip: shipName
     }))
-    // setTimeout(() => {
-    //   console.log(this.state.placingShip)
-    // }, 1000);
-  }
-
-  no() {
-
   }
 
   //Signifies that the game has started - only runs once
   handleStartClick() {
     this.setState({gameStart: true})
-    return;
   }
 
   //Checks if all the ships have been placed and returns true if they have

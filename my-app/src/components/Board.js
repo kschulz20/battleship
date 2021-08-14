@@ -14,7 +14,7 @@ export default class Board extends React.Component {
       : shipType === 'Cruiser' ? 3
       : shipType === 'Submarine' ? 3
       : shipType === 'Destroyer' ? 2
-      : 1
+      : 0
     let isAlsoHovered;
       switch(orientation) {
         case 'left':
@@ -47,7 +47,7 @@ export default class Board extends React.Component {
   }
 
   renderSquare(i) {
-    // //Determine what the color of the square should be
+    // Determine what the color of the square should be
     let squareColor;
     let name;
 
