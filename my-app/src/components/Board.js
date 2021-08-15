@@ -48,15 +48,15 @@ export default class Board extends React.Component {
 
   renderSquare(i) {
     // Determine what the color of the square should be
-    let squareColor;
+    // let squareColor;
     let name;
 
-      if (this.props.board[i].type !== "empty") {
-        squareColor = (this.props.board[i].hit ? "red" : "blue")
-      }
-      else {
-        squareColor = "white";
-      }
+      // if (this.props.board[i].type !== "empty") {
+      //   squareColor = (this.props.board[i].hit ? "red" : "blue")
+      // }
+      // else {
+      //   squareColor = "white";
+      // }
 
       name = this.checkHover(this.props.hoverCoords, i, this.props.placingShip, this.props.orientation) ? 'square hover' : 'square'
 

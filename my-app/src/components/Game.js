@@ -53,6 +53,7 @@ export default class Game extends React.Component {
         default:
           console.log(`Unexpected state: ${this.state.orientation}`)         
       }
+      console.log(`R key pressed. Now facing ${this.state.orientation}`)
     } else if (e.keyCode === 69) { /* E */
       switch (this.state.orientation) {
         case 'up':
@@ -110,16 +111,71 @@ export default class Game extends React.Component {
   }
   
   placeShip(shipName, i) { /* use this.state.orientation too and add error handling */
-    let playerBoard
-    playerBoard = update(this.state.playerBoard, {
-      [i]: {$set: {hit: false, type: shipName}}
-    })
+    let playerBoard, length, orientation, index
+    playerBoard = this.state.playerBoard
+    orientation = this.state.orientation
+    index = i
+
+    length = shipName === 'ACarrier' ? 5 
+    : shipName === 'Battleship' ? 4
+    : shipName === 'Cruiser' ? 3
+    : shipName === 'Submarine' ? 3
+    : shipName === 'Destroyer' ? 2
+    : 0
+
+    switch(orientation) {
+      /* TODO: can remove checking if square is valid since we should prevent those clicks anyways*/
+      case 'left':
+        for (let j=0; j<length; j++) {
+          if (Math.floor(i/10) - Math.floor((i-j)/10) === 0) { 
+            // console.log(`updating at ${i-j}`)
+            playerBoard = update(playerBoard, {
+              [i-j]: {$set: {hit: false, type: shipName}}
+            })
+          }
+        }
+        break;
+      case 'right':
+        for (let j=0; j<length; j++) {
+          if (Math.floor(i/10) - Math.floor((i+j)/10) === 0) {
+            // console.log(`updating at ${i-j}`)
+            playerBoard = update(playerBoard, {
+              [i+j]: {$set: {hit: false, type: shipName}}
+            })
+          }
+        }
+        break;
+      case 'down':
+        for (let j=0; j<length; j++) {
+          if ((i+j*10) <= 100) {
+            // console.log(`updating at ${i-j}`)
+            playerBoard = update(playerBoard, {
+              [i+j*10]: {$set: {hit: false, type: shipName}}
+            })
+          }
+        }
+        break;
+      default:
+        for (let j=0; j<length; j++) {
+          if ((i-j*10) >= 0) {
+            // console.log(`updating at ${i-j}`)
+            playerBoard = update(playerBoard, {
+              [i-j*10]: {$set: {hit: false, type: shipName}}
+            })
+          }
+        }
+    }
+
+    // playerBoard = update(this.state.playerBoard, {
+    //   [i]: {$set: {hit: false, type: shipName}}
+    // })
     this.setState({playerBoard})
   }
 
   handlePlayerClick(shipName, i) {
     // TODO put error handling here
     this.setState({placingShip: ''})
+    this.setState({orientation: 'up'})
     let shipsPlaced
     switch(shipName) {
       case 'ACarrier':
