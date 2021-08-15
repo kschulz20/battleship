@@ -16,16 +16,16 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
       handlePlayerClick from Board to
       Square based on isPlayer in Game.
 
-- [x] setup onclick function            8
+- [x] setup onclick function            8 (P/K)
 
-- [x] implement random ai               5
+- [x] implement random ai               5 (K)
 
-- [ ] allow users to hover and see 
-      ship placement                    144 
+- [x] allow users to hover and see 
+      ship placement                    144 (P)
 
 - [x] allow for rotations                  (P)
 
-- [x] add a ready button that starts    5
+- [x] add a ready button that starts    5 (K)
 the game
 
 - [ ] add status message to signify     8 (K)
@@ -33,7 +33,7 @@ the game
 
 - [ ] write ai for 2nd board            21
 
-- [ ] update square visuals so user
+- [x] update square visuals so user     2 (P)
       can differentiate b/n ships
 
 

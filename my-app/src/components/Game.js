@@ -111,12 +111,10 @@ export default class Game extends React.Component {
   }
   
   placeShip(shipName, i) { /* use this.state.orientation too and add error handling */
-    let playerBoard, length, orientation, index
-    playerBoard = this.state.playerBoard
-    orientation = this.state.orientation
-    index = i
+    let playerBoard = this.state.playerBoard
+    let orientation = this.state.orientation
 
-    length = shipName === 'ACarrier' ? 5 
+    let length = shipName === 'ACarrier' ? 5 
     : shipName === 'Battleship' ? 4
     : shipName === 'Cruiser' ? 3
     : shipName === 'Submarine' ? 3

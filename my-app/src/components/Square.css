@@ -19,23 +19,23 @@
 }
 
 .ACarrier {
-  background: blue;
+  background: rgb(11, 11, 245);
 }
 
 .Battleship {
-  background: blue;
+  background: rgb(56, 56, 214);
 }
 
 .Cruiser {
-  background: blue;
+  background: rgb(23, 23, 199);
 }
 
 .Submarine {
-  background: blue;
+  background: rgb(28, 28, 221);
 }
 
 .Destroyer {
-  background: blue;
+  background: rgb(6, 6, 153);
 }
 
 .hit {
