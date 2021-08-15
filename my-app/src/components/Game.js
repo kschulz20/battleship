@@ -253,7 +253,7 @@ export default class Game extends React.Component {
   }
   
   render() {
-    const playerStatus = this.state.gameStart ? "Game ready" : "Place all ships to start"
+    const playerStatus = this.checkShips() ? "Game ready" : "Place all ships to start"
     let disableStart = true;
 
     //If the game isn't started and all the ships have been placed, enable the start button
