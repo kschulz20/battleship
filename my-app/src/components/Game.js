@@ -257,9 +257,24 @@ export default class Game extends React.Component {
     const cruiserLen = 3;
     const submarineLen = 3;
     const destroyerLen = 2;
-  
-    for(let ships = 0; ships < this.state.aiSunkShips.length; ++ships) {
-      let shipType = Object.keys(this.state.aiSunkShips[ships])[0];
+    
+    let aiSunkShips = [];
+    //Look at AI's sunken ships and only push the ones that haven't been sunk to aiSunkShips
+    for(let obj in this.state.aiSunkShips) {
+      for(let bool in this.state.aiSunkShips[obj]) {
+        //If the ship is false (hasn't been sunk) push
+        if (!this.state.aiSunkShips[obj][bool]) {
+          aiSunkShips.push(obj);
+        }
+      }
+    }
+    //Idk maybe unnecessary
+    if (aiSunkShips.length === 0) {
+      return null;
+    }
+
+    for(let ships = 0; ships < aiSunkShips.length; ++ships) {
+      let shipType = Object.keys(aiSunkShips[ships])[0];
       let acc = 0;
       for(let i = 0; i < this.state.aiBoard.length; ++i) {
         if ((this.state.aiBoard[i].type === shipType) && (this.state.aiBoard[i].hit === true)) {
