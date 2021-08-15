@@ -19,6 +19,7 @@ export default class Game extends React.Component {
       playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
       playerNext: true,
+      aiSunkShips: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
       placingShip: '',
       hoverCoords: -1,
@@ -248,6 +249,40 @@ export default class Game extends React.Component {
       }
     }
     return ready;
+  }
+  
+  returnSunkShip() {
+    const aCarrierLen = 5;
+    const battleshipLen = 4;
+    const cruiserLen = 3;
+    const submarineLen = 3;
+    const destroyerLen = 2;
+  
+    for(let ships = 0; ships < this.state.aiSunkShips.length; ++ships) {
+      let shipType = Object.keys(this.state.aiSunkShips[ships])[0];
+      let acc = 0;
+      for(let i = 0; i < this.state.aiBoard.length; ++i) {
+        if ((this.state.aiBoard[i].type === shipType) && (this.state.aiBoard[i].hit === true)) {
+          ++acc;
+        }
+      }
+      if ((shipType === "ACarrier") && (acc === aCarrierLen)) {
+        return shipType;
+      }
+      else if ((shipType === "Battleship") && (acc === battleshipLen)) {
+        return shipType;
+      }
+      else if ((shipType === "Cruiser") && (acc === cruiserLen)) {
+        return shipType;
+      }
+      else if ((shipType === "Submarine") && (acc === submarineLen)) {
+        return shipType;
+      }
+      else if ((shipType === "Destroyer") && (acc === destroyerLen)) {
+        return shipType;
+      }
+    }
+    return null;
   }
   
   render() {
