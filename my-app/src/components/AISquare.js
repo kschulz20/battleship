@@ -5,12 +5,19 @@ export default class AISquare extends React.Component {
 
 
   render() {
-    let  {
+
+
+    let {
       coords,
       className,
       hit,
-      sunk
+      sunk,
+      shipType
     } = this.props
+
+    if (hit && shipType !== 'empty') {
+      className += ' AIhit'
+    }
 
     if (sunk) className += 'sunk'
     return (    

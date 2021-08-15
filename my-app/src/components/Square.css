@@ -42,6 +42,14 @@
   background: red !important;
 }
 
+.AIhit {
+  background: red;
+}
+
+.sunk {
+  background: black !important;
+}
+
 .hover {
   background: darkblue;
 }

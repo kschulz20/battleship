@@ -9,6 +9,7 @@ export default class AIBoard extends React.Component {
       <Square
         coords={i}
         onClick={(ix) => this.props.onClick(ix)}
+        shipType={this.props.board[i].type}
         hit={this.props.board[i].hit ? "X" : null}
         className='square'
         key={i}
