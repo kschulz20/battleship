@@ -11,6 +11,10 @@ export default class Square extends React.Component {
       className,
       hit
     } = this.props
+    if (hit && shipType !== 'empty') {
+      className += ' hit'
+    }
+
     if (shipType !== 'empty') {
       className += ` ${shipType}`
     }

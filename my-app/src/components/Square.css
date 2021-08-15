@@ -38,6 +38,10 @@
   background: blue;
 }
 
+.hit {
+  background: red !important;
+}
+
 .hover {
   background: darkblue;
 }
