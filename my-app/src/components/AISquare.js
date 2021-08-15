@@ -5,11 +5,14 @@ export default class AISquare extends React.Component {
 
 
   render() {
-    const {
+    let  {
       coords,
       className,
-      hit
+      hit,
+      sunk
     } = this.props
+
+    if (sunk) className += 'sunk'
     return (    
       <button 
         className={className}

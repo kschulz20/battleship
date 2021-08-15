@@ -358,6 +358,7 @@ export default class Game extends React.Component {
             <AIBoard
               board={this.state.aiBoard}
               onClick={(i) => this.handleAIClick(i)}
+              sunkShips={this.state.aiSunkShips}
             />
           </div>
         </div>
