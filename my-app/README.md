@@ -1,6 +1,6 @@
 Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
-- [ ] add way to check whether game    5 (K)
+- [x] add way to check whether game    5 (K)
       is ended                            
 
 - [ ] cleanup?

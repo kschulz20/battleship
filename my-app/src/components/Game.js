@@ -19,8 +19,10 @@ export default class Game extends React.Component {
       playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
       playerNext: true,
+      playerWin: false,
+      gameOver: false,
       aiSunkShips: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
-      recentlySunk: "",
+      recentlySunk: null,
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
       placingShip: '',
       hoverCoords: -1,
@@ -77,14 +79,21 @@ export default class Game extends React.Component {
   }
 
   handleAIClick(i) {
-    //If the game hasn't been started, don't let player click this board
+    //If the game hasn't been started, don't let player click this board.
+    //IF the game is over, also don't let player click the board.
     if (this.state.gameStart === false) {
+      return;
+    }
+    else if (this.state.gameOver) {
       return;
     }
 
     let aiBoardCopy = this.state.aiBoard.slice();
     let playerBoardCopy = this.state.playerBoard.slice();
     let aiTakeTurn = true;
+    //Local variable to keep track if we ended game on this turn
+    //(necessary since state doesn't change immediately on setState call)
+    let over = false;
 
     //Mark this square as being hit
     if (this.state.aiBoard[i].hit === false) {
@@ -103,10 +112,27 @@ export default class Game extends React.Component {
       this.updateSunkShips(sunkShip);
     }
 
+    //Check if the game is over after the player clicked the AI board
+    if (this.checkGameOver(aiBoardCopy)) {
+      this.setState({
+        playerWin: true,
+        gameOver: true
+      });
+      over = true;
+      return;
+    }
+    else if (this.checkGameOver(playerBoardCopy)) {
+      this.setState({gameOver: true});
+      over = true;
+      return;
+    }
+
     //Let AI take its turn
     //If square hasn't been hit yet, let AI take its turn, else do nothing
     if (aiTakeTurn) {
-      playerBoardCopy[randomInt(0, 100)].hit = true;
+      if (!over) { 
+        playerBoardCopy[randomInt(0, 100)].hit = true;
+      }
 
       this.setState({
         playerBoard: playerBoardCopy,
@@ -247,6 +273,16 @@ export default class Game extends React.Component {
     this.setState({gameStart: true})
   }
 
+  //Check if all ships on given board have been destroyed.
+  //If 17 hits are detected, that means every ship is destoryed.
+  checkGameOver(board) {
+    let hits = 0;
+    for(let i = 0; i < board.length; ++i) {
+      if ((board[i].hit === true) && (board[i].type !== "empty")) ++hits;
+    }
+    return hits === 17 ? true : false;
+  }
+
   //Checks if all the ships have been placed and returns true if they have
   checkShips() {
     let ready = true;
@@ -343,8 +379,12 @@ export default class Game extends React.Component {
     }
 
     let sunkShip = this.state.recentlySunk;
-    if (sunkShip !== "") {
+    if (sunkShip !== null) {
       playerStatus = "You've sunk the enemy's " + sunkShip;
+    }
+
+    if (this.state.gameOver) {
+      playerStatus = this.state.playerWin ? "You won!" : "You lost :(";
     }
     
     return (
