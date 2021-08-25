@@ -48,10 +48,6 @@ the game
       (i.e., rid handlePlayerClick of 
       code duplication)
 
-- [ ] add ability for game to detect    5 (K)
-      that game is over and display
-      status message
-
 - [ ] write ai for 2nd board            21
 
 - [x] update square visuals so user     2 (P)
