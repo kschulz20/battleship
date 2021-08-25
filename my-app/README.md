@@ -28,8 +28,21 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 - [x] add a ready button that starts    5 (K)
 the game
 
-- [ ] add status message to signify     8 (K)
+- [x] add status message to signify     8 (K)
       player sunk ship
+
+- [ ] change it so that status          8 (K)
+      messages flash instead of stay
+
+- [ ] generalize updateSunkShips so     8 (P/K)
+      that both handleAiClick and
+      handlePlayerClick use it
+      (i.e., rid handlePlayerClick of 
+      code duplication)
+
+- [ ] add ability for game to detect    5 (K)
+      that game is over and display
+      status message
 
 - [ ] write ai for 2nd board            21
 

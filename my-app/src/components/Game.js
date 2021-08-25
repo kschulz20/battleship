@@ -20,6 +20,7 @@ export default class Game extends React.Component {
       aiBoard: flatten(makeBoard()),
       playerNext: true,
       aiSunkShips: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
+      recentlySunk: "",
       shipsPlaced: [{ACarrier: false}, {Battleship: false}, {Cruiser: false}, {Submarine: false}, {Destroyer: false}],
       placingShip: '',
       hoverCoords: -1,
@@ -92,6 +93,14 @@ export default class Game extends React.Component {
     else {
       //Square was already clicked
       aiTakeTurn = false;
+    }
+
+    //Check if a ship has been sunk and if so, update aiSunkShips to reflect that
+    let sunkShip = this.returnSunkShip();
+    if (sunkShip !== null) {
+      //Set recentlySunk to the name of the ship that we just sunk on player's click
+      this.setState({recentlySunk: sunkShip});
+      this.updateSunkShips(sunkShip);
     }
 
     //Let AI take its turn
@@ -252,52 +261,76 @@ export default class Game extends React.Component {
   }
   
   returnSunkShip() {
-    const aCarrierLen = 5;
-    const battleshipLen = 4;
-    const cruiserLen = 3;
-    const submarineLen = 3;
-    const destroyerLen = 2;
-    
-    let aiSunkShips = [];
+    let aiUnsunkShips = [];
     //Look at AI's sunken ships and only push the ones that haven't been sunk to aiSunkShips
     for(let obj in this.state.aiSunkShips) {
       for(let bool in this.state.aiSunkShips[obj]) {
         //If the ship is false (hasn't been sunk) push
         if (!this.state.aiSunkShips[obj][bool]) {
-          aiSunkShips.push(obj);
+          //Push name of unsunk ships to array
+          aiUnsunkShips.push(Object.keys(this.state.aiSunkShips[obj])[0]);
         }
       }
     }
     //Idk maybe unnecessary
-    if (aiSunkShips.length === 0) {
-      return null;
-    }
-
-    for(let ships = 0; ships < aiSunkShips.length; ++ships) {
-      let shipType = Object.keys(aiSunkShips[ships])[0];
+    if (aiUnsunkShips.length === 0) return null;
+    //Loop through unsunk ships and look at board and see if any of them have been sunk on most recent turn
+    for(let ships = 0; ships < aiUnsunkShips.length; ++ships) {
+      //let shipType = Object.keys(aiUnsunkShips[ships])[0];
+      let shipType = aiUnsunkShips[ships];
+      let shipLen = shipType === "ACarrier" ? 5 :
+                    shipType === "Battleship" ? 4 :
+                    shipType === "Destroyer" ? 2 : 3;
       let acc = 0;
       for(let i = 0; i < this.state.aiBoard.length; ++i) {
         if ((this.state.aiBoard[i].type === shipType) && (this.state.aiBoard[i].hit === true)) {
           ++acc;
         }
       }
-      if ((shipType === "ACarrier") && (acc === aCarrierLen)) {
-        return shipType;
-      }
-      else if ((shipType === "Battleship") && (acc === battleshipLen)) {
-        return shipType;
-      }
-      else if ((shipType === "Cruiser") && (acc === cruiserLen)) {
-        return shipType;
-      }
-      else if ((shipType === "Submarine") && (acc === submarineLen)) {
-        return shipType;
-      }
-      else if ((shipType === "Destroyer") && (acc === destroyerLen)) {
-        return shipType;
-      }
+      //If the ship has as many hits as its length, then that ship is sunk and we return it
+      if (acc === shipLen) return shipType;
     }
+    //No ship sunk
     return null;
+  }
+
+  updateSunkShips(shipType) {
+    let aiSunkShips;
+    switch(shipType) {
+      case "ACarrier":
+        aiSunkShips = update(this.state.aiSunkShips, {
+          0: {$set: {ACarrier: true}}
+        });
+        this.setState({aiSunkShips: aiSunkShips});
+        break;
+      case "Battleship":
+        aiSunkShips = update(this.state.aiSunkShips, {
+          1: {$set: {Battleship: true}}
+        });
+        this.setState({aiSunkShips: aiSunkShips})
+        break;
+      case "Cruiser":
+        aiSunkShips = update(this.state.aiSunkShips, {
+          2: {$set: {Cruiser: true}}
+        });
+        this.setState({aiSunkShips: aiSunkShips})
+        break;
+      case "Submarine":
+        aiSunkShips = update(this.state.aiSunkShips, {
+          3: {$set: {Submarine: true}}
+        });
+        this.setState({aiSunkShips: aiSunkShips})
+        break;
+      case "Destroyer":
+        aiSunkShips = update(this.state.aiSunkShips, {
+          4: {$set: {Destroyer: true}}
+        });
+        this.setState({aiSunkShips: aiSunkShips})
+        break;
+      default:
+        console.log("Unknown error in updateSunkShips");
+        break;
+    }
   }
   
   render() {
@@ -309,10 +342,11 @@ export default class Game extends React.Component {
       disableStart = false;
     }
 
-    let sunkShip = this.returnSunkShip();
-    if (sunkShip !== null) {
+    let sunkShip = this.state.recentlySunk;
+    if (sunkShip !== "") {
       playerStatus = "You've sunk the enemy's " + sunkShip;
     }
+    
     return (
       <>
         <div className="game">
