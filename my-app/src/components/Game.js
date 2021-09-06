@@ -206,6 +206,43 @@ export default class Game extends React.Component {
     this.setState({playerBoard})
   }
 
+  checkPlaceable(shipType, i) {
+    let orientation = this.state.orientation
+    let placeable = false
+    let length
+    let row
+    length = shipType === 'ACarrier' ? 4 
+    : shipType === 'Battleship' ? 3
+    : shipType === 'Cruiser' ? 2
+    : shipType === 'Submarine' ? 2
+    : shipType === 'Destroyer' ? 1
+    : 0
+    console.log(`${orientation}, i: ${i}, length ${length}`)
+    switch(orientation) {
+      case 'up':
+        placeable = (i - 10*length) >= 0
+        break
+      case 'down':
+        placeable = (i + 10*length) <= 99
+        break
+      case 'left':
+        row = Math.floor(i / 10)
+        placeable = Math.floor((i - length) / 10) === row
+        break
+      case 'right':
+        row = Math.floor(i / 10)
+        placeable = Math.floor((i + length) / 10) === row
+        break
+      default:
+        console.log(`Unknown orientation ${orientation}`)
+    }
+    if (placeable) {
+      this.handlePlayerClick(shipType, i)
+    } else {
+      console.log('Invalid ship placement')
+    }
+  }
+
   handlePlayerClick(shipName, i) {
     // TODO put error handling here
     this.setState({placingShip: ''})
@@ -421,7 +458,7 @@ export default class Game extends React.Component {
             <Board
               board={this.state.playerBoard}
               placingShip={this.state.placingShip}
-              onClick={(i) => this.handlePlayerClick(this.state.placingShip, i)}
+              onClick={(i) => this.checkPlaceable(this.state.placingShip, i)}
               onMouseEnter={(coords) => this.handleHover(true, coords)}
               onMouseLeave={(coords) => this.handleHover(false, coords)}
               hoverCoords={this.state.hoverCoords}
