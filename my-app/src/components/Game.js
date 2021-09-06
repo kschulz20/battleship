@@ -7,6 +7,8 @@ import {
   flatten,
   randomInt,
   makeBoard,
+  makeNumArray,
+  removeNum,
 } from '../functions/Game'
 import update from 'immutability-helper'
 
@@ -18,6 +20,8 @@ export default class Game extends React.Component {
     this.state = {
       playerBoard: flatten(makeEmptyBoard()),
       aiBoard: flatten(makeBoard()),
+      //Array of indices of playerBoard that AI has NOT fired at
+      indicesNotHit: makeNumArray(0, 99),
       playerNext: true,
       playerWin: false,
       gameOver: false,
@@ -130,8 +134,12 @@ export default class Game extends React.Component {
     //Let AI take its turn
     //If square hasn't been hit yet, let AI take its turn, else do nothing
     if (aiTakeTurn) {
-      if (!over) { 
-        playerBoardCopy[randomInt(0, 100)].hit = true;
+      if (!over) {
+        //Index AI will fire at on player's board
+        let boardIndex = this.state.indicesNotHit[randomInt(0, this.state.indicesNotHit.length)];
+        playerBoardCopy[boardIndex].hit = true;
+        //Remove the index we fired at from indicesNotHit array so AI doesn't try to fire at it again
+        this.setState({indicesNotHit: removeNum(this.state.indicesNotHit, boardIndex)});
       }
 
       this.setState({

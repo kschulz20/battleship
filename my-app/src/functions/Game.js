@@ -171,10 +171,25 @@ const placeRandomShip = (board, size, type)  => {
   return boardCopy;
 }
 
+//Returns an array filled with numbers min to max (inclusive)
+function makeNumArray(min, max) {
+  let arr = [];
+  for(let i = min; i <= max; ++i) {
+    arr.push(i);
+  }
+  return arr;
+}
+
+//Returns arr with all instances of num removed
+const removeNum = (arr, num) => {
+  return arr.filter(x => x !== num);
+}
+
 module.exports = {
   makeEmptyBoard,
   flatten,
   randomInt,
   makeBoard,
-  
+  makeNumArray,
+  removeNum,
 }
