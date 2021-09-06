@@ -5,7 +5,7 @@ Things to do:                   Difficulty (1,2,3,5,8,13,21,34...)
 
 - [ ] cleanup?
 
-- [ ] prevent clicks when ship on top
+- [x] prevent clicks when ship on top     (P)
       of another ship
 
 - [x] create a separate board
