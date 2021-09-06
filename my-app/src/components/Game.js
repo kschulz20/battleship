@@ -225,7 +225,6 @@ export default class Game extends React.Component {
     : shipType === 'Submarine' ? 2
     : shipType === 'Destroyer' ? 1
     : 0
-    console.log(`${orientation}, i: ${i}, length ${length}`)
     switch(orientation) {
       case 'up':
         placeable = (i - 10*length) >= 0
@@ -245,9 +244,52 @@ export default class Game extends React.Component {
         console.log(`Unknown orientation ${orientation}`)
     }
     if (placeable) {
-      this.handlePlayerClick(shipType, i)
+      this.checkCollision(shipType, length, i)
     } else {
       console.log('Invalid ship placement')
+    }
+  }
+
+  checkCollision(shipType, length, i) {
+    let orientation = this.state.orientation
+    let board = this.state.playerBoard
+    let collision = false
+    switch(orientation) {
+      case 'up':
+        for (let j = 0; j <= length; j++) {
+          if (board[i - j*10].type !== 'empty') {
+            collision = true
+          }
+        }
+        break
+      case 'down':
+        for (let j = 0; j <= length; j++) {
+          if (board[i + j*10].type !== 'empty') {
+            collision = true
+          }
+        }
+        break
+      case 'left':
+        for (let j = 0; j <= length; j++) {
+          if (board[i - j].type !== 'empty') {
+            collision = true
+          }
+        }
+        break
+      case 'right':
+        for (let j = 0; j <= length; j++) {
+          if (board[i + j].type !== 'empty') {
+            collision = true
+          }
+        }
+        break
+      default:
+        console.log(`Unknown orientation ${orientation}`)
+    }
+    if (!collision) {
+      this.handlePlayerClick(shipType, i)
+    } else {
+      console.log('Ship is in the way')
     }
   }
 
